@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/block_response",
+      "dest": "/api/block_response.js"
+    }
+  ]
+}
