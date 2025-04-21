@@ -1,19 +1,19 @@
-수출 체납 기능. 핸들러(필요, 해상도) {
-  한다면 (필요.방법 !== "게시물") {
-    돌아가다 해상도.상황(405).제이슨({ 메세지: "허용되지 않는 방법" });
+export default function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  해라 {
-    컨스펙트 { 이유 } = 필요.몸;
-    컨스펙트 산출량 = 이유 || "조건 위반 감지됨";
+  try {
+    const { reason } = req.body;
+    const output = reason || "조건 위반 감지됨";
 
-    돌아가다 해상도.상황(200).제이슨({
-      상황: "blocked",
-      메세지: `[응답 생성 불가: ${산출량}]`
+    return res.status(200).json({
+      status: "blocked",
+      message: `[응답 생성 불가: ${output}]`
     });
-  } 또 만나 (오류) {
-    돌아가다 해상도.상황(500).제이슨({
-      상황: "오류",
+  } catch (error) {
+    return res.status(500).json({
+      status: "error",
       message: "서버 처리 중 오류가 발생했습니다"
     });
   }
