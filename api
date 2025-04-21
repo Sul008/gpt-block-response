@@ -1,20 +1,20 @@
-기본 함수 핸들러 내보내기(req, res) {
- 만약 (예: method!== "POST") {
- res.status(405).json({ 메시지: "방법 허용되지 않음" })을 반환합니다;
- }
+export default function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
+  }
 
- 시도해보기 {
- const { reason } = req.body;
- const 출력 = 이유 || "조건 위반 감지됨";
+  try {
+    const { reason } = req.body;
+    const output = reason || "조건 위반 감지됨";
 
- res.status(200).json ({ 반환
- 상태: "blocked",
- 메시지: '[응답 생성 불가: ${출력}]'
- });
- } 잡기 (오류) {
- res.status(500).json ({ 반환
- 상태: "오류",
- 메시지: "서버 처리 중 오류가 발생했습니다"
- });
- }
+    return res.status(200).json({
+      status: "blocked",
+      message: `[응답 생성 불가: ${output}]`
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "error",
+      message: "서버 처리 중 오류가 발생했습니다"
+    });
+  }
 }
